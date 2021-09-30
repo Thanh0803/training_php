@@ -4,43 +4,33 @@
 
     $str_1 = fread($file_1,filesize("file_1.txt"));
     $str_2 = fread($file_2,filesize("file_2.txt"));
+
+    $var_1 = 'restaurant';
+    $var_2 = 'book';
     $count = 0;
 
-    function checkValidString($str_1){
-        echo $str_1;
-        echo "<br>";
-        if ((strpos($str_1, 'restaurant') !== FALSE) && (strpos($str_1, 'book')) !== FALSE){
-            return false;
-        } elseif ((strpos($str_1, 'restaurant') !== FALSE) || (strpos($str_1, 'book')) !== FALSE){
-            return true;
-        } else {
+    function checkValidString($string, $v1, $v2)
+    {
+        $checkBook = strpos($string, $v1);
+        $checkRes = strpos($string, $v2);
+        if (($checkBook !== false && $checkRes !== false) || ($checkBook === false && $checkRes === false)) {
             return false;
         }
+        return true;
     }
 
-    function count_sentence($str, $count){
-        for($i==0; $i<strlen($str); $i++){
-            if (substr($str,$i,1) == "."){
-                $count+=1;
-            }
+    function count_sentence($check_str, $str)
+    {
+        if (($check_str == false)){
+            echo "Chuỗi  không hợp lệ <br>";
+        }else {
+            $n = substr_count($str, ".");
+            echo " Chuỗi  hợp lệ. chuỗi bao gồm $n câu. <br>";
         }
-        return $count;
     }
+    $check_str_1 = checkValidString($str_1, $var_1, $var_2);
+    $check_str_2 = checkValidString($str_2, $var_1, $var_2);
 
-    $check_str_1 = checkValidString($str_1);
-    if (($check_str_1 == false)){
-        echo "-> Chuỗi  không hợp lệ <br>";
-    }else {
-        $n_1 = count_sentence($str_1, $count);
-        echo "-> Chuỗi  hợp lệ. chuỗi bao gồm $n_1 câu. <br>";
-    }
-
-    $check_str_2 = checkValidString($str_2);
-    if (($check_str_2 == false)){
-        echo "-> Chuỗi  không hợp lệ <br>";
-    }else {
-        $n_2 = count_sentence($str_2, $count);
-        echo "-> Chuỗi  hợp lệ. chuỗi bao gồm $n_2 câu. <br>";
-    }
-
+    count_sentence($check_str_1, $str_1);
+    count_sentence($check_str_2, $str_2);
 ?>
